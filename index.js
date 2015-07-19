@@ -6,6 +6,7 @@ var isVnode = require('virtual-dom/vnode/is-vnode')
 module.exports = oscilloscope
 
 function oscilloscope (opts) {
+  opts = defined(opts, {})
 
   var numPoints = defined(opts.numPoints) || 512
 
