@@ -1,5 +1,5 @@
 
-# ndsamples-oscilloscope
+# vdom-oscilloscope
 
 render ndsamples as virtual svgs
 
@@ -8,7 +8,7 @@ render ndsamples as virtual svgs
 ### install
 
 ```
-git clone https://github.com/ahdinosaur/ndsamples-oscilloscope
+git clone https://github.com/ahdinosaur/vdom-oscilloscope
 cd 
 npm install
 ```
