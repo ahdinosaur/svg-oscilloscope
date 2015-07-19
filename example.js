@@ -2,6 +2,8 @@ var vdom = require('virtual-dom')
 var main = require('main-loop')
 var readAudio = require('read-audio')
 var CBuffer = require('CBuffer')
+var writable = require('writable2')
+var nextTick = require('next-tick')
 
 var Scope = require('./')
 
@@ -14,7 +16,7 @@ var loop = main(
 )
 
 var opts = {
-  buffer: 1024,
+  buffer: 2048,
   channels: 1
 }
 
@@ -27,7 +29,9 @@ readAudio(opts, function (err, stream) {
   buf.fill(0)
 
   stream
-  .on('data', function (audio) {
+  .pipe(writable.obj({
+    highWaterMark: 1
+  }, function (audio, enc, cb) {
     for (var i = 0; i < audio.shape[0]; i++) {
       buf.push(audio.data[i])
     }
@@ -36,8 +40,9 @@ readAudio(opts, function (err, stream) {
       data: buf,
       shape: bufShape
     })
-  })
-  .resume()
+
+    nextTick(cb)
+  }))
 })
 
 document.body.appendChild(loop.target)
