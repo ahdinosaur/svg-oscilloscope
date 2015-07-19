@@ -16,7 +16,7 @@ var loop = main(
 )
 
 var opts = {
-  buffer: 2048,
+  buffer: 1024,
   channels: 1
 }
 
