@@ -41,15 +41,15 @@ function oscilloscope (opts) {
 
     var array = ndarray(state.data, state.shape, state.stride)
 
-    for (var t = 0; t < numPoints; t++) {
+    for (var p = 0; p < numPoints; p++) {
       for (var c = 0; c < array.shape[1]; c++) {
-        var s = Math.floor(t / numPoints * state.shape[0])
-        var sample = Math.max(-1, Math.min(1, array.get(s, c)))
+        var t = Math.floor(p / numPoints * array.shape[0])
+        var sample = Math.max(-1, Math.min(1, array.get(t, c)))
 
-        points.push(new Float32Array([
-          s / array.shape[0],
+        points[p] = new Float32Array([
+          t / array.shape[0],
           sample
-        ]))
+        ])
       }
     }
 
