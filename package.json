@@ -1,5 +1,5 @@
 {
-  "name": "vdom-oscilloscope",
+  "name": "svg-oscilloscope",
   "version": "0.0.0",
   "description": "render ndsamples as virtual svgs",
   "main": "index.js",
@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ahdinosaur/vdom-oscilloscope"
+    "url": "https://github.com/ahdinosaur/svg-oscilloscope"
   },
   "author": "ahdinosaur",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ahdinosaur/vdom-oscilloscope/issues"
+    "url": "https://github.com/ahdinosaur/svg-oscilloscope/issues"
   },
-  "homepage": "https://github.com/ahdinosaur/vdom-oscilloscope",
+  "homepage": "https://github.com/ahdinosaur/svg-oscilloscope",
   "dependencies": {
     "defined": "^1.0.0",
     "ndarray": "^1.0.18",
