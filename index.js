@@ -13,7 +13,10 @@ function oscilloscope (opts) {
   return render
 
   function render (state) {
-    var strokeDef = getStrokeDef()
+    state = state == null ? {} : state
+
+    var stroke = state.stroke
+    var strokeDef = getStrokeDef(stroke)
 
     //console.log("state", state)
     return h('svg', {
@@ -28,11 +31,11 @@ function oscilloscope (opts) {
       h('polyline', {
         stroke: defined(
           strokeDef && getDefId(strokeDef),
-          opts.stroke, 'cyan'
+          stroke, 'cyan'
         ),
         'stroke-width': defined(opts.strokeWidth, '0.005'),
         fill: 'transparent',
-        points: getPoints(state)
+        points: getPoints(state.points)
           .map(function (p) {
             return p[0] + ',' + p[1]
           })
@@ -41,14 +44,14 @@ function oscilloscope (opts) {
     ])
   }
 
-  function getPoints (state) {
+  function getPoints (raw) {
     var points = new Array(numPoints)
 
-    if (!defined(state)) {
+    if (!defined(raw)) {
       return points
     }
 
-    var array = ndarray(state.data, state.shape, state.stride)
+    var array = ndarray(raw.data, raw.shape, raw.stride)
 
     for (var p = 0; p < numPoints; p++) {
       for (var c = 0; c < array.shape[1]; c++) {
@@ -64,13 +67,13 @@ function oscilloscope (opts) {
 
     return points
   }
+}
 
-  function getStrokeDef () {
-    if (isVnode(opts.stroke)) {
-      var stroke = opts.stroke
-      setDefId(stroke, 'stroke')
-      return stroke
-    }
+function getStrokeDef (stroke) {
+  if (isVnode(stroke)) {
+    var stroke = stroke
+    setDefId(stroke, 'stroke')
+    return stroke
   }
 }
 
