@@ -1,6 +1,7 @@
 var defined = require('defined')
 var ndarray = require('ndarray')
 var h = require('virtual-hyperscript-svg')
+var isVnode = require('virtual-dom/vnode/is-vnode')
 
 module.exports = oscilloscope
 
@@ -11,6 +12,7 @@ function oscilloscope (opts) {
   return render
 
   function render (state) {
+    var strokeDef = getStrokeDef()
 
     //console.log("state", state)
     return h('svg', {
@@ -19,8 +21,14 @@ function oscilloscope (opts) {
       viewBox: '0 -1 1 2',
       preserveAspectRatio: 'none'
     }, [
+      h('defs', [
+        strokeDef
+      ]),
       h('polyline', {
-        stroke: defined(opts.stroke, 'cyan'),
+        stroke: defined(
+          strokeDef && getDefId(strokeDef),
+          opts.stroke, 'cyan'
+        ),
         'stroke-width': defined(opts.strokeWidth, '0.005'),
         fill: 'transparent',
         points: getPoints(state)
@@ -55,4 +63,20 @@ function oscilloscope (opts) {
 
     return points
   }
+
+  function getStrokeDef () {
+    if (isVnode(opts.stroke)) {
+      var stroke = opts.stroke
+      setDefId(stroke, 'stroke')
+      return stroke
+    }
+  }
+}
+
+function getDefId (def) {
+  return 'url(#' + def.properties.id + ')'
+}
+
+function setDefId (def, id) {
+  def.properties.id = 'oscilloscope-' + id
 }
