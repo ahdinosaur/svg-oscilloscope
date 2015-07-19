@@ -3,7 +3,6 @@ var main = require('main-loop')
 var readAudio = require('read-audio')
 var CBuffer = require('CBuffer')
 var writable = require('writable2')
-var nextTick = require('next-tick')
 var h = require('virtual-hyperscript-svg')
 
 var Scope = require('./')
@@ -58,7 +57,7 @@ readAudio(opts, function (err, stream) {
       shape: bufShape
     })
 
-    nextTick(cb)
+    cb()
   }))
 })
 

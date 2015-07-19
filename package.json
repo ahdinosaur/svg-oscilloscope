@@ -37,7 +37,6 @@
     "budo": "^4.0.0",
     "gh-pages": "^0.3.0",
     "main-loop": "^3.1.0",
-    "next-tick": "^0.2.2",
     "read-audio": "^6.1.1",
     "smokestack": "^3.3.0",
     "tap-spec": "^4.0.2",
