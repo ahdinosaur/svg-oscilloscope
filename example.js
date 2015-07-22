@@ -1,7 +1,7 @@
 var vdom = require('virtual-dom')
 var main = require('main-loop')
 var readAudio = require('read-audio')
-var CBuffer = require('CBuffer')
+var hop = require('ndarray-hop/stream')
 var writable = require('writable2')
 var h = require('virtual-hyperscript-svg')
 
@@ -29,28 +29,23 @@ readAudio(opts, function (err, stream) {
 
   var start = 0
   var inc = opts.inc
-  var bufShape = [opts.buffer * 10, opts.channels]
-  var buf = CBuffer(size(bufShape))
-  buf.fill(0)
 
   stream
+  .pipe(hop({
+    frame: { shape: [opts.buffer * 10, opts.channels] },
+    hop: { shape: [opts.buffer, opts.channels] },
+    dtype: 'float32'
+  }))
   .pipe(writable.obj({
     highWaterMark: 1
   }, function (audio, enc, cb) {
-    for (var i = 0; i < audio.shape[0]; i++) {
-      buf.push(audio.data[i])
-    }
-
     loop.update({
       stroke: linearGradientToVsvg(
         rainbowGradient({
           start: start
         })
       ),
-      points: {
-        data: buf,
-        shape: bufShape
-      }
+      points: audio
     })
 
     start += inc
@@ -59,8 +54,3 @@ readAudio(opts, function (err, stream) {
 })
 
 document.body.appendChild(loop.target)
-
-function size (shape) {
-  return shape.reduce(mult)
-}
-function mult (a, b) { return a * b }
