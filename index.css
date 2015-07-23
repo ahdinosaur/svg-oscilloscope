@@ -13,3 +13,9 @@ html, body, svg {
 svg {
   background: black;
 }
+
+#slider {
+  position: absolute;
+  width: 99%;
+  height: 100%;
+}

@@ -39,6 +39,7 @@
     "main-loop": "^3.1.0",
     "ndarray-hop": "^2.1.0",
     "rainbow-linear-gradient": "^2.0.0",
+    "range-slider": "^1.0.2",
     "read-audio": "^6.1.1",
     "smokestack": "^3.3.0",
     "tap-spec": "^4.0.2",
