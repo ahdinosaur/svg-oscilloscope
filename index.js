@@ -51,7 +51,7 @@ function oscilloscope (opts) {
       return points
     }
 
-    var array = ndarray(raw.data, raw.shape, raw.stride)
+    var array = ndarray(raw.data, raw.shape, raw.stride, raw.offset)
 
     for (var p = 0; p < numPoints; p++) {
       for (var c = 0; c < array.shape[1]; c++) {
