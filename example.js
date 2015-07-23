@@ -16,7 +16,8 @@ var opts = {
   buffer: 1024,
   channels: 1,
   inc: 1,
-  numPoints: 512
+  numPoints: 512,
+  numStops: 32
 }
 
 var scope = Scope()
@@ -66,7 +67,8 @@ readAudio(opts, function (err, stream) {
     loop.update({
       stroke: linearGradientToVsvg(
         rainbowGradient({
-          start: start
+          start: start,
+          length: opts.numStops
         })
       ),
       points: points
